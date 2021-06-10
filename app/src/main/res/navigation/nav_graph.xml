@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/wordListFragment"
-        android:name="com.nithesh.wordie.WordListFragment"
+        android:name="com.nithesh.wordie.wordlist.WordListFragment"
         android:label="Wordie"
         tools:layout="@layout/fragment_word_list" />
 </navigation>
