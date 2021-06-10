@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.nithesh.wordie.databinding.FragmentWordListBinding
 
 
+
 class WordListFragment : Fragment() {
     private lateinit var binding: FragmentWordListBinding
     private val viewModel: WordListViewModel by viewModels()
