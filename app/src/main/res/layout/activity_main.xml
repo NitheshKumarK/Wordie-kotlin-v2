@@ -16,33 +16,7 @@
             android:elevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/toolbarLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="8"
-                    android:autofillHints="@string/search_view_hint"
-                    android:hint="@string/search_view_hint"
-                    android:inputType="textFilter" />
-
-                <ImageButton
-                    android:id="@+id/search_image_button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="fill_vertical"
-                    android:layout_weight="2"
-                    android:contentDescription="@string/search_image_button"
-                    android:scaleType="centerCrop"
-                    android:background="@android:drawable/ic_menu_search"
-                    android:backgroundTint="?colorSecondaryVariant"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.Toolbar>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"

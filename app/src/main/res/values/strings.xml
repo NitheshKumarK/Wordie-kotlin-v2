@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Wordie</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_to_search_fragment">Welcome to search fragment</string>
     <string name="get_words">get Words</string>
     <string name="search_image_button">image button to search word</string>
     <string name="search_view_hint">Search word…</string>
+    <string name="search">Search</string>
 </resources>
