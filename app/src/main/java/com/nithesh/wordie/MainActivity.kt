@@ -2,7 +2,6 @@ package com.nithesh.wordie
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
@@ -64,8 +63,15 @@ class MainActivity : AppCompatActivity() {
                         Context.INPUT_METHOD_SERVICE
                     ) as InputMethodManager
                     imm.hideSoftInputFromWindow(windowToken, 0)
-                    navController.navigate(WordListFragmentDirections
-                        .actionWordListFragmentToSearchFragment())
+                    if(!query.isNullOrEmpty()) {
+                        navController.navigate(
+                            WordListFragmentDirections
+                                .actionWordListFragmentToSearchFragment(query)
+                        )
+                    }
+                    else{
+                        return false
+                    }
                     return true
                 }
 
