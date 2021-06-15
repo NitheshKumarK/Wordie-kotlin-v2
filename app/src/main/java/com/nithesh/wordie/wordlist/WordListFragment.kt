@@ -10,8 +10,10 @@ import com.nithesh.wordie.databinding.FragmentWordListBinding
 
 
 class WordListFragment : Fragment() {
+
     private lateinit var binding: FragmentWordListBinding
     private val viewModel: WordListViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

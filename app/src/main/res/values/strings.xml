@@ -3,5 +3,6 @@
     <string name="search">search</string>
     <string name="query_hints">Search words…</string>
     <string name="argument_is">Argument is %1$s</string>
+    <string name="result_count_is">Result count is %1$s</string>
     <string name="get_words">get Words</string>
 </resources>

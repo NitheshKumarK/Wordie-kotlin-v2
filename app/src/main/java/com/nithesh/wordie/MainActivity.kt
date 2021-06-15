@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -65,11 +64,6 @@ class MainActivity : AppCompatActivity() {
             queryHint = getString(R.string.query_hints)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    Toast.makeText(
-                        this@MainActivity,
-                        query ?: "empty",
-                        Toast.LENGTH_SHORT
-                    ).show()
                     val imm = getSystemService(
                         Context.INPUT_METHOD_SERVICE
                     ) as InputMethodManager

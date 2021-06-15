@@ -1,18 +1,26 @@
 package com.nithesh.wordie.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
+import com.nithesh.wordie.network.wordService
+import kotlinx.coroutines.launch
 
 
-class SearchViewModel(queryWord: String) : ViewModel() {
+class SearchViewModel(private val query: String) : ViewModel() {
     private val _queryWord = MutableLiveData<String>()
     val queryWord: LiveData<String>
         get() = _queryWord
+    val resultCount = MutableLiveData<String>()
 
     init {
-        _queryWord.value = queryWord
+        resultCount.value = 0.toString()
+        getWordList()
+    }
+
+    private fun getWordList() {
+        viewModelScope.launch {
+            val list = wordService.getWordListAsync(query)
+            resultCount.value = list.size.toString()
+        }
     }
 }
 

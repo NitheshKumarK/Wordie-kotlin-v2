@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -20,23 +18,19 @@ class SearchFragment : Fragment() {
     private lateinit var viewModelFactory: SearchViewModelFactory
     private lateinit var viewModel: SearchViewModel
     private lateinit var navController: NavController
-    private lateinit var toolbar: Toolbar
-
-    //private lateinit var parentBinding: ViewDataBinding
-    private val TAG: String = SearchFragment::class.java.simpleName
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(
             inflater,
             container,
             false
         )
-
         viewModelFactory = SearchViewModelFactory(
             SearchFragmentArgs.fromBundle(requireArguments()).queryWord ?: "null"
         )
@@ -45,11 +39,9 @@ class SearchFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         navController = findNavController(this)
-        toolbar = ActivityCompat.requireViewById(requireActivity(), R.id.toolbar)
+
         return binding.root
     }
-
-
 
 
 }
