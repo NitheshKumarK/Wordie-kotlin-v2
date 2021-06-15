@@ -2,8 +2,9 @@ package com.nithesh.wordie
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -16,22 +17,32 @@ import com.nithesh.wordie.databinding.ActivityMainBinding
 import com.nithesh.wordie.wordlist.WordListFragmentDirections
 
 class MainActivity : AppCompatActivity() {
+
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private lateinit var menuItem: MenuItem
+    private val TAG: String = MainActivity::class.java.simpleName
+    private lateinit var searchView: SearchView
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_main
         )
+
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.toolbar.inflateMenu(R.menu.search_view)
-        val menuItem = binding.toolbar.menu.findItem(R.id.search_view)
-        val searchView = menuItem.actionView as SearchView
+        menuItem = binding.toolbar.menu.findItem(R.id.search_view)
+        searchView = menuItem.actionView as SearchView
         configureSearchView(searchView)
 //        menuItem.setOnActionExpandListener(object: MenuItem.OnActionExpandListener{
 //            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
@@ -46,11 +57,11 @@ class MainActivity : AppCompatActivity() {
 //                return true
 //            }
 //        })
+        addOnDestinationChangeListener()
     }
 
     private fun configureSearchView(searchView: SearchView) {
         searchView.apply {
-            searchView.findViewById<ImageView>(R.id.search_button).setImageDrawable(null)
             queryHint = getString(R.string.query_hints)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
@@ -63,13 +74,12 @@ class MainActivity : AppCompatActivity() {
                         Context.INPUT_METHOD_SERVICE
                     ) as InputMethodManager
                     imm.hideSoftInputFromWindow(windowToken, 0)
-                    if(!query.isNullOrEmpty()) {
+                    if (!query.isNullOrEmpty()) {
                         navController.navigate(
                             WordListFragmentDirections
                                 .actionWordListFragmentToSearchFragment(query)
                         )
-                    }
-                    else{
+                    } else {
                         return false
                     }
                     return true
@@ -81,5 +91,24 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
+
+    private fun addOnDestinationChangeListener() {
+        try {
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id == R.id.searchFragment
+                ) {
+                    menuItem.collapseActionView()
+                    menuItem.isVisible = false
+                    Log.i(TAG, "addOnDestinationChangeListener: you can hide ")
+                } else {
+                    menuItem.isVisible = true
+                }
+
+            }
+        } catch (t: Throwable) {
+            Log.e(TAG, "addOnDestinationChangeListener: ${t.message}")
+        }
+    }
+
 
 }

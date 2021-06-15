@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/wordListFragment"
-    >
+    app:startDestination="@id/wordListFragment">
 
     <fragment
         android:id="@+id/wordListFragment"
         android:name="com.nithesh.wordie.wordlist.WordListFragment"
         android:label="Wordie"
-        tools:layout="@layout/fragment_word_list" >
+        tools:layout="@layout/fragment_word_list">
         <action
             android:id="@+id/action_wordListFragment_to_searchFragment"
             app:destination="@id/searchFragment"
@@ -19,8 +18,8 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.nithesh.wordie.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        android:label="Search Fragment"
+        tools:layout="@layout/fragment_search">
         <argument
             android:name="queryWord"
             app:argType="string"

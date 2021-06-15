@@ -4,26 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import java.lang.ClassCastException
 
 
-class SearchViewModel(queryWord: String): ViewModel() {
+class SearchViewModel(queryWord: String) : ViewModel() {
     private val _queryWord = MutableLiveData<String>()
     val queryWord: LiveData<String>
-    get() = _queryWord
+        get() = _queryWord
 
-    init{
+    init {
         _queryWord.value = queryWord
     }
 }
 
-class SearchViewModelFactory(private val queryWord: String): ViewModelProvider.Factory {
+class SearchViewModelFactory(private val queryWord: String) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(SearchViewModel::class.java))
-        {
+        if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return SearchViewModel(queryWord) as T
         }
-            throw ClassCastException("SearchViewModel cannot be initiated")
+        throw ClassCastException("SearchViewModel cannot be initiated")
     }
 }
