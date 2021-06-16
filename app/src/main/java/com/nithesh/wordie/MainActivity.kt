@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var menuItem: MenuItem
-    private val TAG: String = MainActivity::class.java.simpleName
+    private val tag: String = MainActivity::class.java.simpleName
     private lateinit var searchView: SearchView
 
 
@@ -93,14 +93,14 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     menuItem.collapseActionView()
                     menuItem.isVisible = false
-                    Log.i(TAG, "addOnDestinationChangeListener: you can hide ")
+                    Log.i(tag, "addOnDestinationChangeListener: you can hide ")
                 } else {
                     menuItem.isVisible = true
                 }
 
             }
         } catch (t: Throwable) {
-            Log.e(TAG, "addOnDestinationChangeListener: ${t.message}")
+            Log.e(tag, "addOnDestinationChangeListener: ${t.message}")
         }
     }
 

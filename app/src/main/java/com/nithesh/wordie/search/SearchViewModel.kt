@@ -1,25 +1,37 @@
 package com.nithesh.wordie.search
 
+import android.util.Log
 import androidx.lifecycle.*
+import com.nithesh.wordie.network.Word
 import com.nithesh.wordie.network.wordService
 import kotlinx.coroutines.launch
 
 
 class SearchViewModel(private val query: String) : ViewModel() {
-    private val _queryWord = MutableLiveData<String>()
-    val queryWord: LiveData<String>
-        get() = _queryWord
-    val resultCount = MutableLiveData<String>()
+    private val TAG: String = SearchViewModel::class.java.simpleName
+    private val _wordList = MutableLiveData<List<Word>>()
+    val wordList: LiveData<List<Word>>
+        get() = _wordList
+
+    private val _stringList = MutableLiveData<List<String>>()
+    val stringList: LiveData<List<String>>
+        get() = _stringList
+
 
     init {
-        resultCount.value = 0.toString()
         getWordList()
     }
 
     private fun getWordList() {
         viewModelScope.launch {
-            val list = wordService.getWordListAsync(query)
-            resultCount.value = list.size.toString()
+            try {
+                _wordList.value = wordService.getWordListAsync(query)
+            } catch (t: Throwable) {
+                Log.e(TAG, "getWordList: ${t.message}")
+                _wordList.value = emptyList()
+                _stringList.value = wordService.getStringList(query)
+            }
+
         }
     }
 }

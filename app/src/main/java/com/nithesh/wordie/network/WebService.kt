@@ -25,4 +25,7 @@ val wordService: WebService by lazy { retrofit.create(WebService::class.java) }
 interface WebService {
     @GET(value = "{word}?key=$BASE_KEY")
     suspend fun getWordListAsync(@Path("word") word: String): List<Word>
+
+    @GET(value = "{word}?key=$BASE_KEY")
+    suspend fun getStringList(@Path("word") word: String): List<String>
 }
