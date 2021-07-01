@@ -1,7 +1,6 @@
 package com.nithesh.wordie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,16 +45,12 @@ class SearchFragment : Fragment() {
         viewModel.wordList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 binding.recyclerView.adapter = wordAdapter
-                Log.i(TAG, "onCreateView: word adapter is added to recycler view")
                 wordAdapter.submitList(it)
-                Log.i(TAG, "onCreateView: word list is submitted")
+
             } else {
                 binding.recyclerView.adapter = stringAdapter
-                Log.i(TAG, "onCreateView: string adapter is added to recycler view")
                 viewModel.stringList.observe(viewLifecycleOwner) { strings ->
-                    Log.i(TAG, "onCreateView: string list is listening ")
                     stringAdapter.submitList(strings)
-                    Log.i(TAG, "onCreateView: strings is submitted to string adapter")
                 }
             }
         }
