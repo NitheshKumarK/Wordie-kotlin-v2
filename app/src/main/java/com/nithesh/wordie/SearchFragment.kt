@@ -40,7 +40,7 @@ class SearchFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         navController = findNavController(this)
-        val wordAdapter = RecyclerViewAdapter()
+        val wordAdapter = WordAdapter()
         val stringAdapter = StringAdapter()
         viewModel.wordList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {

@@ -1,5 +1,6 @@
 package com.nithesh.wordie
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nithesh.wordie.network.Word
 
-class RecyclerViewAdapter : ListAdapter<Word, RecyclerViewAdapter.ViewHolder>(WordDiffCallBack()) {
+class WordAdapter : ListAdapter<Word, WordAdapter.ViewHolder>(WordDiffCallBack()) {
 
 
-    private val TAG: String = RecyclerViewAdapter::class.java.simpleName
+    private val TAG: String = WordAdapter::class.java.simpleName
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -27,13 +28,20 @@ class RecyclerViewAdapter : ListAdapter<Word, RecyclerViewAdapter.ViewHolder>(Wo
         holder.apply {
             text1.text = getItem(position).hwi?.hw ?: "null"
             text2.text = getItem(position).meta.shortDef?.def?.get(0) ?: "null"
-
         }
+        holder.setOnClickListener(getItem(position))
+
+
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val text1: TextView = itemView.findViewById(android.R.id.text1)
         val text2: TextView = itemView.findViewById(android.R.id.text2)
+        fun setOnClickListener(word: Word) {
+            itemView.setOnClickListener {
+                Log.i("WordViewHolder", "setOnClickListener: list item is clicked ${word.hwi?.hw} ")
+            }
+        }
     }
 }
 
@@ -57,10 +65,16 @@ class StringAdapter : ListAdapter<String, StringAdapter.ViewHolder>(StringCallba
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textView.text = getItem(position)
+        holder.setOnClickListener(getItem(position))
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.findViewById(android.R.id.text1)
+        fun setOnClickListener(suggestWord: String) {
+            itemView.setOnClickListener {
+                Log.i("StringViewHolder", "setOnClickListener: $suggestWord")
+            }
+        }
     }
 }
 
