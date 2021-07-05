@@ -5,4 +5,6 @@
     <string name="argument_is">Argument is %1$s</string>
     <string name="result_count_is">Result count is %1$s</string>
     <string name="get_words">get Words</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -24,5 +24,17 @@
             android:name="queryWord"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_searchFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.nithesh.wordie.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="detailWord"
+            app:argType="string" />
     </fragment>
 </navigation>
