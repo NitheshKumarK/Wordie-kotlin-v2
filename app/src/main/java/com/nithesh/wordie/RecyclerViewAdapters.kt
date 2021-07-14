@@ -1,6 +1,5 @@
 package com.nithesh.wordie
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,7 @@ class WordAdapter : ListAdapter<Word, WordAdapter.ViewHolder>(WordDiffCallBack()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            android.R.layout.simple_list_item_2,
+            R.layout.word_list_item,
             parent,
             false
         )
@@ -25,18 +24,19 @@ class WordAdapter : ListAdapter<Word, WordAdapter.ViewHolder>(WordDiffCallBack()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.apply {
-            text1.text = getItem(position).hwi?.hw ?: "null"
-            text2.text = getItem(position).meta.shortDef?.def?.get(0) ?: "null"
-        }
+        holder.bind(getItem(position))
 
 
 
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val text1: TextView = itemView.findViewById(android.R.id.text1)
-        val text2: TextView = itemView.findViewById(android.R.id.text2)
+        private val text1: TextView = itemView.findViewById(android.R.id.text1)
+        private val text2: TextView = itemView.findViewById(android.R.id.text2)
+        fun bind(word: Word) {
+            text1.text = word.hwi?.hw ?: "null"
+            text2.text = word.meta.shortDef?.def?.get(0) ?: "null"
+        }
     }
 }
 
@@ -59,21 +59,17 @@ class StringAdapter : ListAdapter<String, StringAdapter.ViewHolder>(StringCallba
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = getItem(position)
-        holder.setOnClickListener(getItem(position))
-
+        holder.bind(getItem(position))
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView.findViewById(android.R.id.text1)
-        fun setOnClickListener(suggestWord: String) {
-            itemView.setOnClickListener {
-                Log.i("StringViewHolder", "setOnClickListener: $suggestWord")
-                SearchFragmentDirections.actionSearchFragmentToDetailFragment(suggestWord)
-            }
+        private val textView: TextView = itemView.findViewById(android.R.id.text1)
+        fun bind(string: String) {
+            textView.text = string
         }
     }
-}
+    }
+
 
 class StringCallback : DiffUtil.ItemCallback<String>() {
     override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
@@ -83,4 +79,8 @@ class StringCallback : DiffUtil.ItemCallback<String>() {
     override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
         return oldItem == newItem
     }
+}
+
+class WordClickListener(val clickListener: (word: Word) -> Unit) {
+    fun onClick(word: Word) = clickListener(word)
 }

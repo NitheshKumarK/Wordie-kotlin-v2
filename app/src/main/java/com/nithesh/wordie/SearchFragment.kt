@@ -18,7 +18,7 @@ class SearchFragment : Fragment() {
     private lateinit var viewModelFactory: SearchViewModelFactory
     private lateinit var viewModel: SearchViewModel
     private lateinit var navController: NavController
-    private val TAG: String = SearchFragment::class.java.simpleName
+    //private val TAG: String = SearchFragment::class.java.simpleName
 
 
     override fun onCreateView(
@@ -54,7 +54,6 @@ class SearchFragment : Fragment() {
                 }
             }
         }
-
         return binding.root
     }
 

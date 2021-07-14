@@ -1,0 +1,31 @@
+s<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.nithesh.wordie.search.SearchViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/string_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->viewModel.searchSuggestion()}">
+
+        <TextView
+            android:id="@+id/suggestion_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textAppearance="?textAppearanceListItem"
+            android:textSize="22sp"
+            tools:text="apple"
+
+            />
+
+
+    </LinearLayout>
+</layout>
