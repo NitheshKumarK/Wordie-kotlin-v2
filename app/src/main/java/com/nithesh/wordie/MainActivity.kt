@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     private fun addOnDestinationChangeListener() {
         try {
             navController.addOnDestinationChangedListener { _, destination, _ ->
-                if (destination.id == R.id.searchFragment
+                if (destination.id == R.id.searchFragment || destination.id == R.id.detailFragment
                 ) {
                     menuItem.collapseActionView()
                     menuItem.isVisible = false
@@ -103,6 +103,15 @@ class MainActivity : AppCompatActivity() {
         } catch (t: Throwable) {
             Log.e(tag, "addOnDestinationChangeListener: ${t.message}")
         }
+    }
+
+    override fun onNavigateUp(): Boolean {
+        return super.onNavigateUp() || navController.navigateUp()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        navController.navigateUp()
     }
 
 

@@ -26,7 +26,8 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_searchFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:launchSingleTop="true" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -35,6 +36,7 @@
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="detailWord"
-            app:argType="string" />
+            app:argType="com.nithesh.wordie.network.Word"
+            app:nullable="true" />
     </fragment>
 </navigation>

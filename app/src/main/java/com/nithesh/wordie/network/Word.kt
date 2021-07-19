@@ -1,8 +1,11 @@
 package com.nithesh.wordie.network
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 
 
+@Parcelize
 data class Word(
     val meta: Meta,
     val hwi: HeadWordInformation?,
@@ -12,9 +15,9 @@ data class Word(
     val dros: List<DefinedRunOns>?,
     @Json(name = "shortdef") val shortDef: List<String>?
 
-)
+) : Parcelable
 
-
+@Parcelize
 data class Meta(
     val id: String,
     val uuid: String,
@@ -24,36 +27,37 @@ data class Meta(
     val stems: List<String>?,
     @Json(name = "app-shortdef") val shortDef: AppShortDef?,
     val offensive: Boolean
-)
+) : Parcelable
 
-
+@Parcelize
 data class AppShortDef(
     val hw: String?,
     val fl: String?,
     val def: List<String>?
-)
+) : Parcelable
 
-
+@Parcelize
 data class HeadWordInformation(
     val hw: String?,
     val prs: List<Pronunciation>?
-)
+) : Parcelable
 
-
+@Parcelize
 data class Pronunciation(
     val ipa: String?,
     val sound: Sound?
-)
+) : Parcelable
 
-
+@Parcelize
 data class Sound(
     val audio: String?
-)
+) : Parcelable
 
+@Parcelize
 data class Inflections(
     val il: String?,
     @Json(name = "if") val inflection: String?
-)
+) : Parcelable
 
 /*
 //data class Definition(
@@ -72,7 +76,7 @@ data class Inflections(
 //data class Sense(
 //    val dt: List<List<String?>?>?
 )*/
-
+@Parcelize
 data class DefinedRunOns(
     val drp: String?
-)
+) : Parcelable
