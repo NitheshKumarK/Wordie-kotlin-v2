@@ -41,7 +41,7 @@ class WordAdapter(private val viewModel: SearchViewModel) :
         //this method binds the word and clickListener with the views inside the ViewHolder
         fun bind(word: Word, clickListener: WordClickListener) {
             binding.headWordText.text = word.hwi?.hw ?: "null"
-            binding.definitionWordText.text = word.meta.shortDef?.def?.get(0) ?: "null"
+            binding.definitionWordText.text = word.meta!!.shortDef?.def?.get(0) ?: "null"
             binding.word = word
             binding.clickListener = clickListener
         }

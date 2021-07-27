@@ -80,6 +80,7 @@ class SearchFragment : Fragment() {
                         .actionSearchFragmentToDetailFragment(it)
                 )//launch single top is set to false
                 viewModel.doneSearchFragmentToDetailFragmentNavigation()
+                Log.e(TAG, "onCreateView: word object is set after navigation is done")
             } else {
                 Log.e(TAG, "onCreateView: word object is null")
             }

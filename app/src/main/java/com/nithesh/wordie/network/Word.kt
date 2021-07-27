@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Word(
-    val meta: Meta,
+    val meta: Meta?,
     val hwi: HeadWordInformation?,
     val fl: String?,
     val ins: List<Inflections>?,
@@ -19,14 +19,14 @@ data class Word(
 
 @Parcelize
 data class Meta(
-    val id: String,
-    val uuid: String,
+    val id: String?,
+    val uuid: String?,
     val src: String?,
     val section: String?,
     val highlight: String?,
     val stems: List<String>?,
     @Json(name = "app-shortdef") val shortDef: AppShortDef?,
-    val offensive: Boolean
+    val offensive: Boolean?
 ) : Parcelable
 
 @Parcelize

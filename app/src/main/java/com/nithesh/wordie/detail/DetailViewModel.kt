@@ -13,6 +13,7 @@ class DetailViewModel(resultWord: Word) : ViewModel() {
 
     init {
         _word.value = resultWord
+
     }
 
 }
