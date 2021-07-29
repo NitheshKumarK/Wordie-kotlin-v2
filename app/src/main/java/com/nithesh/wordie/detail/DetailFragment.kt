@@ -11,10 +11,12 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import com.nithesh.wordie.databinding.FragmentDetailBinding
-import com.nithesh.wordie.network.Word
 
 class DetailFragment : Fragment() {
+    private val TAG: String = DetailFragment::class.java.simpleName
     private lateinit var analytics: FirebaseAnalytics
+    private lateinit var viewModel: Lazy<DetailViewModel>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,8 +29,8 @@ class DetailFragment : Fragment() {
         )
         val word = DetailFragmentArgs.fromBundle(requireArguments()).detailWord
         val factory = DetailViewModelFactory(word!!)
-        val viewModel: DetailViewModel by viewModels { factory }
-        binding.viewModel = viewModel
+        viewModel = viewModels { factory }
+        binding.viewModel = viewModel.value
         analytics = Firebase.analytics
         analytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
             param(FirebaseAnalytics.Param.ITEM_ID, word.meta!!.id ?: "-1")
@@ -39,7 +41,4 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-    class SaveClickListener(val clickListener: (word: Word) -> Unit) {
-        fun onclick(word: Word) = clickListener(word)
-    }
 }

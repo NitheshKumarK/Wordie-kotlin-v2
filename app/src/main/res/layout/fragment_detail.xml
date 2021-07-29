@@ -29,5 +29,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Word" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:contentDescription="@string/save_current_word"
+            android:onClick="@{()->viewModel.saveWord()}"
+            android:src="@drawable/ic_baseline_check_64"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

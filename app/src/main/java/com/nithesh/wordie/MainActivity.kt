@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -14,6 +13,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
+import com.google.firebase.auth.FirebaseAuth
 import com.nithesh.wordie.databinding.ActivityMainBinding
 import com.nithesh.wordie.wordlist.WordListFragmentDirections
 
@@ -25,8 +28,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var saveMenuItem: MenuItem
     private val tag: String = MainActivity::class.java.simpleName
     private lateinit var searchView: SearchView
-    private lateinit var saveView: Button
-
+    private val signInLauncher = registerForActivityResult(
+        FirebaseAuthUIActivityResultContract()
+    ) {
+        onSignInResult(it)
+    }
+    private val authProviders = arrayListOf(
+        AuthUI.IdpConfig.EmailBuilder().build(),
+        AuthUI.IdpConfig.GoogleBuilder().build()
+    )
+    private val signInIntent = AuthUI.getInstance()
+        .createSignInIntentBuilder()
+        .setAvailableProviders(authProviders)
+        .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,16 +64,9 @@ class MainActivity : AppCompatActivity() {
         //find search menu item from the menu
         searchMenuItem = binding.toolbar.menu.findItem(R.id.search_menu)
         //find the save menu item from the menu
-        saveMenuItem = binding.toolbar.menu.findItem(R.id.save_menu)
         //get search view from the search menu item
         searchView = searchMenuItem.actionView as SearchView
         //get save button from the save menu item
-        saveMenuItem.setOnMenuItemClickListener {
-            if (it.itemId == saveMenuItem.itemId) {
-                Log.i(TAG, "onCreate: menu item clicked")
-            }
-            return@setOnMenuItemClickListener true
-        }
         //we are using the actionViewClass in search menu
         //so we have to configure the search view
         configureSearchView(searchView)
@@ -78,6 +85,7 @@ class MainActivity : AppCompatActivity() {
 //        })
         //add destinationChangeListener to navController by calling this method
         addOnDestinationChangeListener()
+        signInLauncher.launch(signInIntent)
     }
 
     private fun configureSearchView(searchView: SearchView) {
@@ -157,6 +165,20 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private val TAG: String = MainActivity::class.java.simpleName
+    }
+
+    private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
+        val response = result.idpResponse
+        if (result.resultCode == RESULT_OK) {
+            val user = FirebaseAuth.getInstance().currentUser
+            Log.i(TAG, "onSignInResult: $user signed-in successfully")
+        } else {
+            if (response != null) {
+                Log.i(TAG, "onSignInResult: ${response.error}")
+            } else {
+                Log.e(TAG, "onSignInResult: response is null")
+            }
+        }
     }
 
 
