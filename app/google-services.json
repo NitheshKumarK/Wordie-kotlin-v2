@@ -1,71 +1,58 @@
 {
   "project_info": {
-    "project_number": "1021451769321",
-    "firebase_url": "https://test-2a2a2-default-rtdb.firebaseio.com",
-    "project_id": "test-2a2a2",
-    "storage_bucket": "test-2a2a2.appspot.com"
+    "project_number": "804455236999",
+    "firebase_url": "https://wordie-16168.firebaseio.com",
+    "project_id": "wordie-16168",
+    "storage_bucket": "wordie-16168.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1021451769321:android:3c65ce495893d73ff3a778",
-        "android_client_info": {
-          "package_name": "com.nithesh.tests"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1021451769321-nmpkcnji73juqk0jrll1dn5qbllb4l72.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.nithesh.tests",
-            "certificate_hash": "e5367f1ece8470494e34ce666f58cc9c1cfe4fe7"
-          }
-        },
-        {
-          "client_id": "1021451769321-62v0egq9ks3vm1epk1u2a8766g50dilh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBfzck41a7nZOo9eCW01tzIdz7erI49KpY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1021451769321-62v0egq9ks3vm1epk1u2a8766g50dilh.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1021451769321:android:5b58b20227437ee1f3a778",
+        "mobilesdk_app_id": "1:804455236999:android:7692175f7fd3f3ad433f22",
         "android_client_info": {
           "package_name": "com.nithesh.wordie"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1021451769321-62v0egq9ks3vm1epk1u2a8766g50dilh.apps.googleusercontent.com",
+          "client_id": "804455236999-4mabhtcl2aflooprd3p35vo99tg3fvho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nithesh.wordie",
+            "certificate_hash": "e5367f1ece8470494e34ce666f58cc9c1cfe4fe7"
+          }
+        },
+        {
+          "client_id": "804455236999-imbq4gghmb7rqpcnsjrakfpdq8ihutun.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nithesh.wordie",
+            "certificate_hash": "1f23b226b86563f1f9c9c5ad53e872aeb1719958"
+          }
+        },
+        {
+          "client_id": "804455236999-vh71u4gldclu73pl05fnsvorrcde987v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nithesh.wordie",
+            "certificate_hash": "d6ad6199d560a0932729575b217365747b607b5a"
+          }
+        },
+        {
+          "client_id": "804455236999-v4hopfr4pu7ifv3ig9gc2nogqbm1nr4v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBfzck41a7nZOo9eCW01tzIdz7erI49KpY"
+          "current_key": "AIzaSyBeI1lZqTtZvB6yvyj7_8lf2OJLEDe9uh0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1021451769321-62v0egq9ks3vm1epk1u2a8766g50dilh.apps.googleusercontent.com",
+              "client_id": "804455236999-v4hopfr4pu7ifv3ig9gc2nogqbm1nr4v.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -13,34 +13,22 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
-import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.google.firebase.auth.FirebaseAuth
 import com.nithesh.wordie.databinding.ActivityMainBinding
 import com.nithesh.wordie.wordlist.WordListFragmentDirections
 
 class MainActivity : AppCompatActivity() {
     //these are global variables
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
+    //views
     private lateinit var searchMenuItem: MenuItem
     private lateinit var saveMenuItem: MenuItem
-    private val tag: String = MainActivity::class.java.simpleName
     private lateinit var searchView: SearchView
-    private val signInLauncher = registerForActivityResult(
-        FirebaseAuthUIActivityResultContract()
-    ) {
-        onSignInResult(it)
-    }
-    private val authProviders = arrayListOf(
-        AuthUI.IdpConfig.EmailBuilder().build(),
-        AuthUI.IdpConfig.GoogleBuilder().build()
-    )
-    private val signInIntent = AuthUI.getInstance()
-        .createSignInIntentBuilder()
-        .setAvailableProviders(authProviders)
-        .build()
+
+    //binding
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
+
+    //constants
+    private val tag: String = MainActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,8 +73,10 @@ class MainActivity : AppCompatActivity() {
 //        })
         //add destinationChangeListener to navController by calling this method
         addOnDestinationChangeListener()
-        signInLauncher.launch(signInIntent)
+
+
     }
+
 
     private fun configureSearchView(searchView: SearchView) {
         searchView.apply {
@@ -96,6 +86,7 @@ class MainActivity : AppCompatActivity() {
                     //get inputMethodManager from system service to hide the softKeyboard
                     val inputMethodManager = getSystemService(
                         Context.INPUT_METHOD_SERVICE
+
                     ) as InputMethodManager
                     inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
                     //check if query is null or empty
@@ -166,20 +157,5 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private val TAG: String = MainActivity::class.java.simpleName
     }
-
-    private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
-        val response = result.idpResponse
-        if (result.resultCode == RESULT_OK) {
-            val user = FirebaseAuth.getInstance().currentUser
-            Log.i(TAG, "onSignInResult: $user signed-in successfully")
-        } else {
-            if (response != null) {
-                Log.i(TAG, "onSignInResult: ${response.error}")
-            } else {
-                Log.e(TAG, "onSignInResult: response is null")
-            }
-        }
-    }
-
 
 }

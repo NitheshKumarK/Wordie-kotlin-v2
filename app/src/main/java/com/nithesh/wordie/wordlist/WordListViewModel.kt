@@ -11,6 +11,10 @@ class WordListViewModel : ViewModel() {
     val text: LiveData<String>
         get() = _text
 
+    fun setTextValue(value: String) {
+        _text.value = value
+    }
+
     init {
         _text.value = "Word list fragment"
     }
