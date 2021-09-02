@@ -10,4 +10,5 @@
     <string name="save">Save</string>
     <string name="save_current_word">save current word</string>
     <string name="launch">launch</string>
+    <string name="logout_text">logout</string>
 </resources>

@@ -11,7 +11,8 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.nithesh.wordie.databinding.FragmentWordListBinding
 
 
@@ -19,9 +20,7 @@ class WordListFragment : Fragment() {
 
     private lateinit var binding: FragmentWordListBinding
     private val viewModel: WordListViewModel by viewModels()
-
-    //private late-init var analytics: FirebaseAnalytics
-    private lateinit var database: FirebaseDatabase
+    private lateinit var auth: FirebaseAuth
 
     //firebase authentication
     //sign-in launcher
@@ -53,12 +52,27 @@ class WordListFragment : Fragment() {
 //            param(FirebaseAnalytics.Param.CONTENT_TYPE,"String")
 //        }
         //initialize the fire-base realtime-database
-        database = FirebaseDatabase.getInstance()
-        val messageReference = database.getReference("message")
-        messageReference.setValue("Hello World!")
+        auth = Firebase.auth
+
         binding.startButton.setOnClickListener {
             launchActivity()
         }
+        binding.logoutButton.setOnClickListener {
+            AuthUI.getInstance()
+                .signOut(requireActivity())
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        binding.textView.text = "Successfully signed out"
+                    }
+                }
+        }
+        auth.addAuthStateListener {
+            if (it.currentUser == null) {
+                launchActivity()
+            }
+
+        }
+
         return binding.root
     }
 
@@ -78,7 +92,7 @@ class WordListFragment : Fragment() {
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
         val response = result.idpResponse
         if (result.resultCode == Activity.RESULT_OK) {
-            val currentUser = FirebaseAuth.getInstance().currentUser
+            val currentUser = auth.currentUser
             viewModel.setTextValue(currentUser?.uid ?: "unique user id is empty")
         } else {
             viewModel.setTextValue(" signIn failed")
