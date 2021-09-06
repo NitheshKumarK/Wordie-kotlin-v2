@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.firebase.ui.auth.AuthUI
@@ -12,6 +13,7 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.nithesh.wordie.databinding.FragmentWordListBinding
 
@@ -21,6 +23,7 @@ class WordListFragment : Fragment() {
     private lateinit var binding: FragmentWordListBinding
     private val viewModel: WordListViewModel by viewModels()
     private lateinit var auth: FirebaseAuth
+    private var isUserAnonymous = false
 
     //firebase authentication
     //sign-in launcher
@@ -69,11 +72,30 @@ class WordListFragment : Fragment() {
         auth.addAuthStateListener {
             if (it.currentUser == null) {
                 launchActivity()
+            } else {
+                if (it.currentUser?.isAnonymous == true) {
+                    isUserAnonymous = true
+                    Toast.makeText(
+                        this.context,
+                        "Your data will be deleted after your exit the app",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }
             }
 
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (isUserAnonymous) {
+            Firebase.database.getReference("words-collection")
+                .child(auth.currentUser?.uid!!).removeValue()
+            AuthUI.getInstance().delete(this.requireContext())
+        }
     }
 
     private fun launchActivity() {
